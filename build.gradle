@@ -1,0 +1,41 @@
+buildscript {
+	repositories {
+		mavenLocal()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.1.RELEASE")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+
+jar { 
+	manifest.attributes "Main-Class": "com.interfac.usermanager.config.Application"
+	baseName = 'usermanager'
+	version = '0.1.0'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile("org.springframework.boot:spring-boot-starter-web")
+	compile("org.thymeleaf:thymeleaf-spring4")
+	compile("org.springframework.boot:spring-boot-starter-data-jpa")
+	compile("mysql:mysql-connector-java:5.1.34")
+    compile("org.springframework.boot:spring-boot-devtools")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("org.springframework.boot:spring-boot-starter-security")
+    compile('net.sourceforge.nekohtml:nekohtml:1.9.21')
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '2.14.1'
+}
+
+task copyDepJars(type: Copy){
+	from configurations.compile
+	into 'F:\\sts-workspace\\lib'
+}

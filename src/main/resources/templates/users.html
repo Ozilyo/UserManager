@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1" />
+<title>all users</title>
+</head>
+<body>
+
+	</br>
+	<div class="box">
+		<div class="container-1">
+			<span class="icon"><i class="fa fa-search"></i></span>
+		</div>
+	</div>
+	<div class="search">
+		<form action="#" th:action="@{/users/search}">
+			<input type="search" id="search" placeholder="Search..."
+				th:name="username" />
+			<button type="submit" th:text="Search">Search</button>
+		</form>
+	</div>
+	</br>
+	</br>
+	</br>
+
+	<table>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th width="120">Username</th>
+				<th width="120">First Name</th>
+				<th width="120">Last Name</th>
+				<th width="120">Email</th>
+				<th width="120">Created on</th>
+				<th width="120">Last modified on</th>
+				<th width="120">Last modified by</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="user : ${usersList}">
+				<td align="center"><a href="/user/1"
+					th:href="@{/user/{userId}(userId=${user.getUserId()})}"
+					th:text="*{user.getUserId()}">1</a></td>
+				<td align="center" th:text="${user.getUserName()}">N/A</td>
+				<td align="center" th:text="${user.getFirstName()}">N/A</td>
+				<td align="center" th:text="${user.getLastName()}">N/A</td>
+				<td align="center" th:text="${user.getDateCreated()}">N/A</td>
+				<td align="center"
+					th:text="${user.getLatestModifier().getUserName()}">N/A</td>
+				<td align="center" th:text="${user.getDateModified()}">N/A</td>
+
+
+				<td align="center"><a href="/users/edit/1"
+					th:href="@{/users/edit/{userId}(userId=${user.getUserId()})}">Edit</a></td>
+				<td align="center"><a href="/users/delete/0"
+					th:href="@{/users/delete/{userId}(userId=${user.getUserId()})}">Delete</a></td>
+			</tr>
+		</tbody>
+	</table>
+
+	</br>
+	</br>
+
+	<form method="POST" action="#" th:action="@{/user/add}"
+		th:object="${user}">
+		<div class="error" th:if="${#fields.hasErrors('*')}">
+			<ul>
+				<li th:each="err : ${#fields.errors('*')}" th:text="${err}">Invalid
+					input!</li>
+			</ul>
+		</div>
+		<table>
+			<tr th:if="${user.getFirstName() != null}">
+				<td><label th:class="${#fields.hasErrors('userId')}? 'error'">ID</label>:
+				</td>
+				<td><input type="text" disabled="true" readonly="true"
+					th:field="*{userId}" /> <input type="hidden" th:field="*{userId}" /></td>
+
+			</tr>
+			<tr>
+				<td><label
+					th:class="${#fields.hasErrors('firstName')}? 'error'">First
+						Name</label>:</td>
+				<td><input type="text" th:field="*{firstName}"
+					th:class="${#fields.hasErrors('firstName')}? 'error'" /></td>
+			</tr>
+			<tr>
+				<td><label th:class="${#fields.hasErrors('lastName')}? 'error'">Last
+						Name</label>:</td>
+				<td><input type="text" th:field="*{lastName}"
+					th:class="${#fields.hasErrors('lastName')}? 'error'" /></td>
+			</tr>
+			<tr>
+				<td><label th:class="${#fields.hasErrors('phone')}? 'error'">Phone</label>:
+				</td>
+				<td><input type="number" th:field="*{phone}"
+					th:class="${#fields.hasErrors('phone')}? 'error'" /></td>
+			</tr>
+			<tr>
+				<!-- 				<td><label th:class="${#fields.hasErrors('department')}? 'error'">Department</label>: </td> -->
+				<!-- 				<td><select th:field="*{department.departmentId}"> -->
+				<!--   						<option th:each="department : ${departmentsList}"  -->
+				<!-- 					   			th:value="${department.departmentId}"  -->
+				<!-- 					          	th:text="${department.departmentName}"> Please Select</option> -->
+				<!-- 					</select></td> -->
+			</tr>
+
+			<tr>
+				<td><button class="Add" type="submit" name="add"
+						th:if="${user.getFirstName() == null}" th:text="Add">Add</button>
+					<button class="Add" type="submit" name="edit"
+						th:if="${user.getFirstName() != null}" th:text="Edit">Edit</button></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>
