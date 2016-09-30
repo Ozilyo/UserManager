@@ -33,8 +33,8 @@ public class Application {
 		repo.save(root);
 	}
 	
-	@Bean
-    AuditorAware<User> auditorProvider() {
-        return new AuditorAwareImp();
-    }
+	
+//    AuditorAware<User> auditorProvider() {
+//        return new AuditorAwareImp();
+//    }
 }
