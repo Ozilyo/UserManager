@@ -21,16 +21,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth
 			.jdbcAuthentication()
-				.dataSource(dataSource)
-				.usersByUsernameQuery("select username, password, true "
-						+ "from user where username=?");
+				.dataSource(dataSource).usersByUsernameQuery("select username, password, true "
+						+ "from user where username=?")
+//				.withUser("root").password("root").roles("ADMIN");
+				.authoritiesByUsernameQuery("select user.username, role.name from role, user "
+						+ "inner join users_roles on users_roles.role_id "
+						+ "where user.username=? and users_roles.user_id=user.userid");
+				
 	}
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
+			.authorizeRequests()
+				.antMatchers("/login*").anonymous()
+				.antMatchers("/users").hasAuthority("ROLE_USER")
+				.anyRequest().authenticated()
+			  .and()
 			.formLogin()
-			 .and()
+				.loginPage("/login")
+		        .defaultSuccessUrl("/",true)
+		        
+			  .and()
+			.logout()
+				.logoutSuccessUrl("/")
+			  .and()
 			.authorizeRequests()
 				.anyRequest().authenticated();
 		

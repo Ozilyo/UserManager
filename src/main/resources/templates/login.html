@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<!-- 	<div id="header" th:include="page :: header"></div> -->
+	<h3>Provide your username and password</h3>
+	
+	<div th:if="${param.error != null}" class="error">
+		Faild to login.
+		<div th:if="${SPRING_SECURITY_LAST_EXCEPTION != null}"> Reason: <span th:text="${SPRING_SECURITY_LAS_EXCEPTION.message}"></span></div>
+	</div>
+	
+	<div id="content">
+		<form name='f' th:action='@{/login}' method='POST'>
+			<table>
+				<tr>
+					<td>User:</td>
+					<td><input type='text' name='username' value='' /></td>
+				</tr>
+				<tr>
+					<td>Password:</td>
+					<td><input type='password' name='password' /></td>
+				</tr>
+				<tr>
+					<td colspan='2'><input name="submit" type="submit"
+						value="Login" /></td>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				</tr>
+			</table>
+		</form>
+	</div>
+<!-- 	<div id="footer" th:include="page :: copy"></div> -->
+</body>
+</html>

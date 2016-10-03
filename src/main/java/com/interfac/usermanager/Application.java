@@ -8,7 +8,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.templateresolver.TemplateResolver;
 
 import com.interfac.usermanager.config.AuditorAwareImp;
 import com.interfac.usermanager.user.model.User;
@@ -23,18 +29,27 @@ import com.interfac.usermanager.user.repositories.UserRepository;
 public class Application {
 	@Autowired
 	UserRepository repo;
+//	@Autowired
+//	TemplateResolver templateResolver;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
 	
-	public void test(){
-		User root = new User("root", "root", "toor");
-		root.setUserName("root");
-		repo.save(root);
+	@Bean
+	public PasswordEncoder passwordEncoder(){
+		return new StandardPasswordEncoder();
+		
 	}
 	
+//	 @Bean
+//	 public SpringTemplateEngine templateEngine() {
+//	     SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+//	     templateEngine.setTemplateResolver(templateResolver);
+////	     templateEngine.addDialect(new TilesDialect());
+//	     templateEngine.addDialect(new SpringSecurityDialect());
+//	     return templateEngine;
+//	 }
 	
-//    AuditorAware<User> auditorProvider() {
-//        return new AuditorAwareImp();
-//    }
+	
 }

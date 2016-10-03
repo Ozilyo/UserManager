@@ -2,6 +2,8 @@ package com.interfac.usermanager.config;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
@@ -12,26 +14,20 @@ import com.interfac.usermanager.user.model.User;
 import com.interfac.usermanager.user.repositories.UserRepository;
 
 @Configuration
-public class AuditorAwareImp implements AuditorAware<User> {
+public class AuditorAwareImp implements AuditorAware<String> {
 	
 	@Autowired
 	private UserRepository userRepository;
 	@Override
-	public User getCurrentAuditor() {
+	public String getCurrentAuditor() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		List<User> users = userRepository.findUserByUserName(auth.getName());
-//		if (auth == null || !auth.isAuthenticated()) {
-//		      return null;
-//		}
+		
 
-		if (users.size() > 0) {
-            return users.get(0);
-        } else {
-            throw new IllegalArgumentException();
-        }
-        
-        
+	    if (auth == null || !auth.isAuthenticated()) {
+	        return null;
+	    }
 
+	    return auth.getName();
 	}
 
 }
