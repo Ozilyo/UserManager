@@ -29,57 +29,58 @@
 				<td><label
 					th:class="${#fields.hasErrors('firstName')}? 'error'">First
 						Name</label>:</td>
-				<td><input type="text" th:field="*{firstName}"
+				<td><input required="required" type="text" th:field="*{firstName}"
 					th:class="${#fields.hasErrors('firstName')}? 'error'" /></td>
 			</tr>
+			
 			<tr>
 				<td><label th:class="${#fields.hasErrors('lastName')}? 'error'">Last
 						Name</label>:</td>
-				<td><input type="text" th:field="*{lastName}"
+				<td><input required="required" type="text" th:field="*{lastName}"
 					th:class="${#fields.hasErrors('lastName')}? 'error'" /></td>
 			</tr>
 			<tr>
 				<td><label th:class="${#fields.hasErrors('phone')}? 'error'">Phone</label>:
 				</td>
-				<td><input type="number" th:field="*{phone}"
+				<td><input required="required" type="number" th:field="*{phone}"
 					th:class="${#fields.hasErrors('phone')}? 'error'" /></td>
 			</tr>
 				
 			<tr>
 				<td><label th:class="${#fields.hasErrors('email')}? 'error' ">Email Address</label>:
 				</td>
-				<td><input type="text" th:field="*{email}"
+				<td><input required="required" type="text" th:field="*{email}"
 					th:class="${#fields.hasErrors('email')}? 'error'" /></td>
 			</tr>
 			
-<!-- 			<tr> -->
-<!-- 				<td><label th:class="${#fields.hasErrors('birthDate')}? 'error' ">Birth Date</label>:</td> -->
-<!-- 				<td><input type="date" th:field="*{birthDate}" -->
-<!-- 					th:class="${#fields.hasErrors('birthDate')}? 'error' "></td> -->
-<!-- 			</tr> -->
+			<tr>
+				<td><label th:class="${#fields.hasErrors('birthDate')}? 'error' ">Birth Date</label>:</td>
+				<td><input type="date" th:field="*{birthDate}"
+					th:class="${#fields.hasErrors('birthDate')}? 'error' "></td>
+			</tr>
 			
 			<tr><td><br></td></tr>
 			<tr>
 				<td><label th:class="${#fields.hasErrors('userName')}? 'error' ">Username</label>:</td>
-				<td><input type="text" th:field="*{userName}"
+				<td><input required="required" type="text" th:field="*{userName}"
 					th:class="${#fields.hasErrors('userName')}? 'error' "></td>
 			</tr>
 			
 			<tr>
 				<td><label th:class="${#fields.hasErrors('password')}? 'error' ">Password</label>:</td>
-				<td><input type="password" th:field="*{password}"
+				<td><input required="required" type="password" th:field="*{password}"
 					th:class="${#fields.hasErrors('password')}? 'error' "></td>
-			</tr>		
+			</tr>	
+			<tr>
+				<td><label th:class="${#fields.hasErrors('matchingPassword')}? 'error' ">Re-enter password</label>:</td>
+				<td><input required="required" type="password" th:field="*{matchingPassword}"
+					th:class="${#fields.hasErrors('matchingPassword')}? 'error' "></td>
+			</tr>	
 				
 			<tr>
 				<td><label th:class="${#fields.hasErrors('isAdmin')}? 'error' ">Account type</label>:</td>
 				<td><input type="radio" th:field="*{isAdmin}" th:text="Admin" th:value="true"> 
 					<input type="radio" th:field="*{isAdmin}" th:text="User" th:value="false"></td>
-			</tr>
-			<tr>
-				<td><label th:class="${#fields.hasErrors('matchingPassword')}? 'error' ">Re-enter password</label>:</td>
-				<td><input type="password" th:field="*{matchingPassword}"
-					th:class="${#fields.hasErrors('matchingPassword')}? 'error' "></td>
 			</tr>
 			
 			

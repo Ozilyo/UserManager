@@ -34,8 +34,6 @@ public class UserServiceImp {
 		Role adminRole = roleRepository.findByName("ROLE_ADMIN");
 		Role userRole = roleRepository.findByName("ROLE_USER");
 		
-		
-		System.err.println(userRole + "$$$$$$$$$$$$$" + adminRole);
 		if (userNameExists(user.getUserName())) {
 			throw new UsernameExistsException("A user already exists with that username: " + user.getUserName());
 		}

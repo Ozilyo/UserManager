@@ -19,13 +19,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -33,61 +33,161 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.interfac.usermanager.util.PasswordsMatch;
+import com.interfac.usermanager.util.PasswordsMatchValidator;
 
+/**
+ *  This class represents the <i>User</i> entity.
+ *  
+ * This class is:
+ * <ul>
+ * 		<li>Mapped to the <i>user</i> table in the database.</li>
+ * 		<li>Audited by JPA auditing on the fields <code>createdDate</code>, <code>modifiedDate</code> and <code>latestModifier</code>, as annotated @EntityListeners</li>
+ * 		<li>Audited by Hibernate EnVers and user_AUD audit table is created automatically to show revisions</li>
+ * 		<li>annotated with the custom @PasswordsMatch for validating that the password field matches the matchingPassword field
+ * 			@see {@link PasswordsMatch} and {@link PasswordsMatchValidator}</li>
+ * </ul>
+ * 
+ * 
+ * @author Ali Abdalla
+ *
+ */
+/**
+ * @author Ali
+ *
+ */
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Audited
 @PasswordsMatch
 public class User {
 	
+	/**
+	 *Represents the ID property and the primary key 
+	 */
 	private long userId;
 	
 	
-//	@NotNull(message="{username.empty}")
-//    @Size(min=2, max=15, message="{username.size}")
+	/**
+	 * Represents the userName property.
+	 * Is mapped to the <i>username</i> column in the database.
+	 * 
+	 */	
+	@NotEmpty(message="username field should not be empty")
+    @Size(min=2, max=15, message="{username.size}")
 	private String userName;
-	
-//	@NotNull(message="{firstName.empty}")
-//    @Size(min=2, max=30, message="{firstName.size}")
+	 
+	/**
+	 * Represents the firstName property.
+	 * Is mapped to the <i>first_name</i> column in the database.
+	 * 
+	 */
+
+	@NotEmpty(message="First Name field should not be empty")
+    @Size(min=2, max=30, message="{firstName.size}")
 	private String firstName;
 	
-//	@NotNull(message="{lastName.empty}")
-//    @Size(min=2, max=30, message="{lastName.size}")
+	/**
+	 * Represents the lastName property.
+	 * Is mapped to the <i>last_name</i> column in the database.
+	 * 
+	 */
+	@NotEmpty(message="Last Name field should not be empty")
+    @Size(min=2, max=30, message="{lastName.size}")
 	private String lastName;
-	
-//	@NotNull(message="{email.empty}")
-//	@Email
+
+	/**
+	 * Represents the user's email address.
+	 * Is mapped to the <i>email</i> column in the database.
+	 * 
+	 */
+	@NotEmpty(message="email field should not be empty}")
+	@Email
 	private String email;
-	
-//	@NotNull(message="{phone.empty}")
-//	@Pattern(regexp="\\b\\d{3}[-.]?\\d{3}[-.]?\\d{4}\\b", message="{phone.pattern}")
+
+	/**
+	 * Represents the user's phone number.
+	 * Is mapped to the <i>phone</i> column in the database.
+	 * 
+	 */
+	@NotEmpty(message="phone field should not be empty")
+	@Pattern(regexp="\\b\\d{3}[-.]?\\d{3}[-.]?\\d{4}\\b", message="{phone.pattern}")
 	private String phone;
-	
-//	@NotNull
-//    @Size(min=6, message="{password.size}")
+
+	/**
+	 * Represents the password property.
+	 * Is mapped to the <i>password</i> column in the database.
+	 * can be at least 6 charachters long.
+	 */
+	@NotEmpty(message="password field should not be empty")
+    @Size(min=6, message="{password.size}")
 	private String password;
+
+	/**
+	 * Represents the <i>matchingPassword</i> property.
+	 * Is mapped to the <i>matching_Password</i> column in the database.
+	 * used in the @PasswordsMatch validation annotation to validate matching passwords
+	 * 
+	 */
 	private String matchingPassword;
-	
+
+	/**
+	 * Represents the Birthdate property.
+	 * Is mapped to the <i>birth_date</i> column in the database.
+	 * annotated <i>temporalType.DATE</i> for easy conversion to java.sql.Date type.
+	 * displays only the date (dd-mm-yyyy)
+	 * 
+	 */
 	@Temporal(TemporalType.DATE)
 	private Date BirthDate;
+
+
+	/**
+	 * Represents the boolean isAdmin property.
+	 * Is mapped to the <i>is_admin</i> column in the database.
+	 * is <code>true</code> if the user has <i>ADMIN</i> role, <code>false</code> otherwise.
+	 */
 	private boolean isAdmin;
 	
+
+	/**
+	 * Represents the date and time the user was created.
+	 * Is mapped to the <i>date_created</i> column in the database.
+	 * Is filled automatically by JPA Spring data auditing.
+	 * 
+	 */
 	@CreatedDate
 	private Date dateCreated;
-	
+
+	/**
+	 * Represents the state of the user's account, if enabled or disabled.
+	 * Is mapped to the <i>is_enabled</i> column in the database.
+	 * 
+	 */
 	private boolean isEnabled;
 	
-	
+	/**
+	 * Represents the <code>username</code> of the last user that modified this specific instance of <code>User</code>.
+	 * Is mapped to the <i>modified_by</i> column in the database.
+	 * Is filled automatically by JPA Spring data auditing.
+	 * 
+	 */
 	@LastModifiedBy
 	private String latestModifier;
 	
-	
-//	private Set<User> usersChanged = new HashSet<User>();
-	
+	/**
+	 * Represents the date and time for the most recent modification.
+	 * Is mapped to the <i>date_modified</i> column in the database.
+	 * Is filled automatically by JPA Spring data auditing.
+	 * 
+	 */	
 	@LastModifiedDate
 	private Date dateModified;
 	
 	
+	/**
+	 * A collection of roles and authorities that the user has.
+	 * mapped 
+	 */
 	private Collection<Role> roles;
 	
 	
@@ -196,8 +296,6 @@ public class User {
 	}
 
 	
-//	@ManyToOne(cascade=CascadeType.ALL)
-//	@JoinColumn(name="modified_by")
 	@Column(name="modified_by")
 	public String getLatestModifier() {
 		return latestModifier;
@@ -207,7 +305,7 @@ public class User {
 	}
 	
 	
-	@Column(name="last_modified")
+	@Column
 	public Date getDateModified() {
 		return dateModified;
 	}

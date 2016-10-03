@@ -52,8 +52,9 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         user.setUserName("root");
         user.setFirstName("Test");
         user.setLastName("Test");
-        user.setPassword("root");
-        user.setMatchingPassword("root");
+        user.setPhone("1234567890");
+        user.setPassword("root123");
+        user.setMatchingPassword("root123");
         user.setEmail("test@test.com");
         user.setIsAdmin(false);
         user.setEnabled(true);
@@ -61,7 +62,7 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         try {
 			userService.registerUser(user);
 		} catch (UsernameExistsException e) {
-			e.printStackTrace();
+			
 		}
         alreadySetup = true;
     }
