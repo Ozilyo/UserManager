@@ -73,12 +73,6 @@
 						th:class="${#fields.hasErrors('email')}? 'error'" /></td>
 				</tr>
 				
-				<tr>
-					<td><label th:class="${#fields.hasErrors('birthDate')}? 'error' ">Birth Date</label>:</td>
-					<td><input type="date" th:field="*{birthDate}"
-						th:class="${#fields.hasErrors('birthDate')}? 'error' "></td>
-				</tr>
-				
 				<tr><td><br></td></tr>
 				<tr>
 					<td><label th:class="${#fields.hasErrors('userName')}? 'error' ">Username</label>:</td>
@@ -97,7 +91,7 @@
 						th:class="${#fields.hasErrors('matchingPassword')}? 'error' "></td>
 				</tr>	
 					
-				<tr>
+				<tr sec:authorize="hasRole('ROLE_ADMIN')">
 					<td><label th:class="${#fields.hasErrors('isAdmin')}? 'error' ">Account type</label>:</td>
 					<td><input type="radio" th:field="*{isAdmin}" th:text="Admin" th:value="true"> 
 						<input type="radio" th:field="*{isAdmin}" th:text="User" th:value="false"></td>

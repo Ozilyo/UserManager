@@ -42,7 +42,7 @@ import com.interfac.usermanager.user.validation.PasswordsMatchValidator;
  * <ul>
  * 		<li>Mapped to the <i>user</i> table in the database.</li>
  * 		<li>Audited by JPA auditing on the fields <code>createdDate</code>, <code>modifiedDate</code> and <code>latestModifier</code>, as annotated @EntityListeners</li>
- * 		<li>Audited by Hibernate EnVers and user_AUD audit table is created automatically to show revisions</li>
+ * 		
  * 		<li>annotated with the custom @PasswordsMatch for validating that the password field matches the matchingPassword field
  * 			@see {@link PasswordsMatch} and {@link PasswordsMatchValidator}</li>
  * </ul>
@@ -53,7 +53,6 @@ import com.interfac.usermanager.user.validation.PasswordsMatchValidator;
  */
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Audited
 @PasswordsMatch
 public class User {
 	
@@ -430,7 +429,7 @@ public class User {
 		name = "users_roles", 
 		joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "userId"),
 		inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-	@NotAudited
+	
 	public Collection<Role> getRoles() {
 		return roles;
 	}

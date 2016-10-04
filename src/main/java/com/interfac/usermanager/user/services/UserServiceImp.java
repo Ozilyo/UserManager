@@ -18,15 +18,27 @@ import com.interfac.usermanager.user.repositories.UserRepository;
 import com.interfac.usermanager.user.validation.UsernameExistsException;
 
 
+/**
+ * This class is an implementation for the {@link UserService} interface.
+ * 
+ * @author Ali
+ *
+ */
 @Service
 public class UserServiceImp implements UserService {
-	
+
+	/**
+	 * This instance is Autowired to the {@link UserRepository} interface. handles user data access.
+	 */
 	@Autowired
 	private UserRepository userRepository;
+
+	/**
+	 * This instance is Autowired to the {@link RoleRepository} interface. handles role data access.
+	 */
 	@Autowired
 	private RoleRepository roleRepository;
-	@Autowired
-	private EntityManager entityManager;
+
 	
 
 	
@@ -35,18 +47,17 @@ public class UserServiceImp implements UserService {
 	 */
 	@Override
 	public void registerUser(User user) throws UsernameExistsException{
-		Role adminRole = roleRepository.findByName("ROLE_ADMIN");
-		Role userRole = roleRepository.findByName("ROLE_USER");
 		
 		if (userNameExists(user.getUserName())) {
 			throw new UsernameExistsException("A user already exists with that username: " + user.getUserName());
 		}
 		
+		Role adminRole = roleRepository.findByName("ROLE_ADMIN");
+		Role userRole = roleRepository.findByName("ROLE_USER");
+		
 		if (user.isAdmin()) {
-			System.err.println(user.isAdmin());
 			user.setRoles(Arrays.asList(adminRole));
 		} else {
-			System.err.println(user.isAdmin());
 			user.setRoles(Arrays.asList(userRole));
 		}
 		
@@ -85,25 +96,6 @@ public class UserServiceImp implements UserService {
 		return userRepository.findByUserName(username);
 	}
 	
-	
-	
-	/* (non-Javadoc)
-	 * @see com.interfac.usermanager.user.services.UserService#retrieveAudits(java.lang.Long)
-	 */
-	@Override
-	public void retrieveAudits(Long userId) {
-		
-		
-		AuditReader auditReader = AuditReaderFactory.get(entityManager);
-		
-		List<Number> revisions = auditReader.getRevisions(User.class, userId);
-		
-		for (Number n : revisions) {
-			User user = auditReader.find(User.class, userId, n);
-			System.out.printf("\t[Rev #%1$s] > %2$s\n", n, user);
-			
-		}
-	}
 	
 	
 	/* (non-Javadoc)
