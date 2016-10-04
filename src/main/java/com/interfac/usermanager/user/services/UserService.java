@@ -3,7 +3,7 @@ package com.interfac.usermanager.user.services;
 import java.util.List;
 
 import com.interfac.usermanager.user.model.User;
-import com.interfac.usermanager.util.UsernameExistsException;
+import com.interfac.usermanager.user.validation.UsernameExistsException;
 
 public interface UserService {
 

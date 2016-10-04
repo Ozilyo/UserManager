@@ -15,8 +15,8 @@
 		<div class="nav_box"><a href="welcome" th:href="@{/}">Home</a></div>
 		<div class="nav_box"><a sec:authorize="#authentication.authenticated" href="/home"
 					th:href="@{/home}">Profile</a></div>
-		<div class="nav_box" id="active"><a href="users" th:href="@{users}">All Users</a></div>	
-		<div class="nav_box"><a href="/registration"
+		<div class="nav_box" id="active" sec:authorize="hasRole('ROLE_ADMIN')"><a href="users" th:href="@{users}">All Users</a></div>	
+		<div class="nav_box" sec:authorize="hasRole('ROLE_ADMIN')"><a href="/registration"
 						th:href="@{/registration}">Register a user</a></div>
 						
 		<div class="nav_box" style="float:right"><a sec:authorize="#authentication.authenticated" href="/logout"

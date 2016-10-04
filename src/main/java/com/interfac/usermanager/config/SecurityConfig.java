@@ -23,7 +23,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.jdbcAuthentication()
 				.dataSource(dataSource).usersByUsernameQuery("select username, password, true "
 						+ "from user where username=?")
-//				.withUser("root").password("root").roles("ADMIN");
 				.authoritiesByUsernameQuery("select user.username, role.name from user, role "
 						+ "join users_roles on (users_roles.role_id = role.id) "
 						+ "where user.username=? and users_roles.user_id=user.userid");
@@ -35,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 			.authorizeRequests()
 				.antMatchers("/login*").anonymous()
-				.antMatchers("/users").hasAuthority("ROLE_USER")
+				.antMatchers("/users/**").hasAuthority("ROLE_ADMIN")
 				.anyRequest().authenticated()
 			  .and()
 			.formLogin()
@@ -46,10 +45,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.logout()
 				.logoutSuccessUrl("/")
 			  .and()
-			.authorizeRequests()
-				.anyRequest().authenticated();
+			.exceptionHandling().accessDeniedPage("/access_denied");
 		
-		http.csrf().disable();
+		
+		
+//		http.csrf().disable();
 	}
 	
 }

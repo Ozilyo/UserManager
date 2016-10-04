@@ -1,4 +1,4 @@
-package com.interfac.usermanager.util;
+package com.interfac.usermanager.user.validation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

@@ -15,7 +15,7 @@ import com.interfac.usermanager.user.model.Role;
 import com.interfac.usermanager.user.model.User;
 import com.interfac.usermanager.user.repositories.RoleRepository;
 import com.interfac.usermanager.user.repositories.UserRepository;
-import com.interfac.usermanager.util.UsernameExistsException;
+import com.interfac.usermanager.user.validation.UsernameExistsException;
 
 
 @Service

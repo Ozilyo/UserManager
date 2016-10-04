@@ -1,7 +1,5 @@
 package com.interfac.usermanager.user.controllers;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.transaction.Transaction;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,33 +13,61 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.interfac.usermanager.user.model.User;
+import com.interfac.usermanager.user.repositories.UserRepository;
 import com.interfac.usermanager.user.services.UserService;
-import com.interfac.usermanager.util.UsernameExistsException;
+import com.interfac.usermanager.user.validation.UsernameExistsException;
 
+/**
+ *  This class handles mapping the HTTP requests to the views after calling the {@link UserService} 
+ * for processing the needed service.
+ * 
+ * @author Ali
+ *
+ * @see UserRepository
+ * @see UserService
+ */
 @Controller
-
 public class UserController {
+	/**
+	 * This instance is Autowired to the {@link UserService} interface.
+	 */
 	@Autowired
-	private UserService userService; // change type to userService interface
+	private UserService userService;
 	
-	@RequestMapping(value = "", method=RequestMethod.GET)
+	/**
+	 * Handle <a><i>"/"</i></a> request page. Returns a <code>welcomeMessage</code> variable 
+	 * populated with the currently logged in username extracted from the {@link Authentication} object.
+	 * @param model caries the <code>welcomeMessage</code> var to the view
+	 * @return string resolved to the view path.
+	 */
+	@RequestMapping(value = "/", method=RequestMethod.GET)
 	public String welcome(Model model){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	      String name = auth.getName(); //get logged in username
+	    String name = auth.getName();
 	      
-		model.addAttribute("welcomeMessage", "You are logged in as '" + name + "' "
-				+ auth.getAuthorities() + auth.getDetails() + "\n" + auth.getPrincipal());
+		model.addAttribute("welcomeMessage", "You are logged in as '" + name + "' ");
 		return "welcome";
 	}
 	
 	
+	/**
+	 * Handle <a><i>"/users"</i></a> request. Returns a model attributes 
+	 * back to the view.
+	 * <ul>
+	 * 		<li><i>usersList : </i>list of <i>User</i> objects, 
+	 * 			   sent to the view to populate the table.</li>
+	 * </ul>
+	 * @param model caries the <code>welcomeMessage</code> var to the view
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/users")
-	public String usersList(Model model){
+	public String listUsers(Model model){
 		model.addAttribute("usersList", userService.listUsers());
-		model.addAttribute("user", new User());
+//		model.addAttribute("user", new User());
 		return "users";
 	}
 	
@@ -56,10 +82,9 @@ public class UserController {
 	
 	
 	
-	@RequestMapping(value = "/{userId}", method=RequestMethod.GET)
-	public String login(@PathVariable Long userId, Model model){
-		model.addAttribute("user", userService.getUserById(userId));
-		return "home";
+	@RequestMapping(value = "/access_denied", method=RequestMethod.GET)
+	public String accessDeniedController(){
+		return "access_denied";
 	}
 	
 	

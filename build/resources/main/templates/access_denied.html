@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script type="text/javascript">
+	$(".reset").click(function() {
+    	$(this).closest('form').find("input[type=date], textarea").val("");
+	});
+</script>
+<link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}" href="../css/style.css">
+</head>
+<body>
+
+	<nav>
+		<div class="nav_box"><a href="welcome" th:href="@{/}">Home</a></div>
+		<div class="nav_box"><a sec:authorize="#authentication.authenticated" href="/home"
+						th:href="@{/home}">Profile</a></div>
+		<div class="nav_box" sec:authorize="hasRole('ROLE_ADMIN')"><a href="users" th:href="@{users}">All Users</a></div>	
+		<div class="nav_box" sec:authorize="hasRole('ROLE_ADMIN')"><a href="/registration"
+						th:href="@{/registration}">Register a user</a></div>
+						
+		<div class="nav_box" style="float:right"><a sec:authorize="#authentication.authenticated" href="/logout"
+						th:href="@{/logout}">Logout</a></div>					
+	</nav>
+
+	<div>
+		<br><br>
+		<h1>HTTP Status 403 - Access is denied</h1>
+		<br><br>
+		<h3>Hi <span sec:authentication="name">name</span>, It seems you do not have access to this resource</h3>
+		
+		<a></a>
+	</div>
+<h2></h2>
+</body>
+</html>

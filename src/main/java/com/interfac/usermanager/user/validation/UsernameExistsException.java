@@ -1,4 +1,4 @@
-package com.interfac.usermanager.util;
+package com.interfac.usermanager.user.validation;
 
 @SuppressWarnings("serial")
 public class UsernameExistsException extends Throwable{

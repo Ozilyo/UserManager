@@ -32,8 +32,8 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.interfac.usermanager.util.PasswordsMatch;
-import com.interfac.usermanager.util.PasswordsMatchValidator;
+import com.interfac.usermanager.user.validation.PasswordsMatch;
+import com.interfac.usermanager.user.validation.PasswordsMatchValidator;
 
 /**
  *  This class represents the <i>User</i> entity.
@@ -51,10 +51,6 @@ import com.interfac.usermanager.util.PasswordsMatchValidator;
  * @author Ali Abdalla
  *
  */
-/**
- * @author Ali
- *
- */
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Audited
@@ -62,7 +58,7 @@ import com.interfac.usermanager.util.PasswordsMatchValidator;
 public class User {
 	
 	/**
-	 *Represents the ID property and the primary key 
+	 *Represents the user's ID property and the primary key 
 	 */
 	private long userId;
 	
@@ -130,16 +126,6 @@ public class User {
 	 */
 	private String matchingPassword;
 
-	/**
-	 * Represents the Birthdate property.
-	 * Is mapped to the <i>birth_date</i> column in the database.
-	 * annotated <i>temporalType.DATE</i> for easy conversion to java.sql.Date type.
-	 * displays only the date (dd-mm-yyyy)
-	 * 
-	 */
-	@Temporal(TemporalType.DATE)
-	private Date BirthDate;
-
 
 	/**
 	 * Represents the boolean isAdmin property.
@@ -185,164 +171,260 @@ public class User {
 	
 	
 	/**
-	 * A collection of roles and authorities that the user has.
-	 * mapped 
+	 * A collection of authorities the user has.
 	 */
 	private Collection<Role> roles;
 	
 	
+	/**
+	 * getter for the userId field
+	 * 
+	 * @return userId
+	 */
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="userid")
 	public long getUserId() {
 		return userId;
 	}
+	/**
+	 * Setter for the userId field
+	 * 
+	 * @param id 
+	 */
 	public void setUserId(long id) {
 		this.userId = id;
 	}
 	
 	
+	/**
+	 * Getter for the userName field
+	 * @return userName
+	 */
 	@Column(name="username")
 	public String getUserName() {
 		return userName;
 	}
+	/**
+	 * Setter for the userName field
+	 * @param userName
+	 */
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 	
 	
+	/**
+	 * Getter for the firstName field
+	 * @return firstName
+	 */
 	@Column
 	public String getFirstName() {
 		return firstName;
 	}
+	/**
+	 * Setter for the firstName field
+	 * @param firstName
+	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 	
 	
 	
+	/**
+	 * Getter for the lastName field
+	 * @return
+	 */
 	@Column
 	public String getLastName() {
 		return lastName;
 	}
+	/**
+	 * Setter for the lastName field
+	 * @param lastName
+	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 	
 	
+	/**
+	 * Getter for the email field
+	 * @return email
+	 */
 	@Column
 	public String getEmail() {
 		return email;
 	}
+	/**
+	 * Setter for the email field
+	 * @param email
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 	
 	
 	
+	/**
+	 * Getter for the phone field
+	 * @return phone
+	 */
 	@Column
 	public String getPhone() {
 		return phone;
 	}
+	/**
+	 * Setter for the phone field
+	 * @param phone
+	 */
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 	
 	
 	
+	/**
+	 * 
+	 * Getter for the password field
+	 * @return password
+	 */
 	@Column
 	public String getPassword() {
 		return password;
 	}
+	/**
+	 * Setter for the password field
+	 * @param password
+	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
 	
 	
 	
+	/**
+	 * Getter for the matchingPassword field
+	 * @return matchingPassword
+	 */
 	public String getMatchingPassword() {
 		return matchingPassword;
 	}
+	/**
+	 * Setter for the matchingPassword field
+	 * @param matchingPassword
+	 */
 	public void setMatchingPassword(String matchingPassword) {
 		this.matchingPassword = matchingPassword;
 	}
 	
 	
+	/**
+	 * Getter for the isAdmin field, for spring framework default use.
+	 * @return isAdmin
+	 */
 	@Column(name="is_admin")
 	public boolean getIsAdmin() {
 		return isAdmin;
 	}
+	/**
+	 * Setter for the isAdmin field
+	 * @param isAdmin
+	 */
 	public void setIsAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
 	
-	
-	@Column
-	public Date getBirthDate() {
-		return BirthDate;
-	}
-	public void setBirthDate(Date birthDate) {
-		BirthDate = birthDate;
-	}
-	
-	
 
+	/**
+	 * Getter for the isAdmin field
+	 * @return isAdmin
+	 */
 	public boolean isAdmin() {
 		return isAdmin;
 	}
+	/**
+	 * Setter for the phone field
+	 * @param isAdmin
+	 */
 	public void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
 	
 	
+	/**
+	 * Getter for the dateCreated field
+	 * @return dateCreated
+	 */
 	@Column(name="date_created")
 	public Date getDateCreated() {
 		return dateCreated;
 	}
+	/**
+	 * Setter for the dateCreated field
+	 * @param createdDated
+	 */
 	public void setDateCreated(Date createdDated) {
 		this.dateCreated = createdDated;
 	}
 
 	
+	/**
+	 * Getter for the latestModifier field
+	 * @return latestModifier
+	 */
 	@Column(name="modified_by")
 	public String getLatestModifier() {
 		return latestModifier;
 	}
+	/**
+	 * setter for the latestModifier field
+	 * @param latestModifier
+	 */
 	public void setLatestModifier(String latestModifier) {
 		this.latestModifier = latestModifier;
 	}
 	
 	
+	/**
+	 * getter for the dateModified field
+	 * @return dateModified
+	 */
 	@Column
 	public Date getDateModified() {
 		return dateModified;
 	}
+	/**
+	 * setter for the dateModified field
+	 * @param dateModified
+	 */
 	public void setDateModified(Date dateModified) {
 		this.dateModified = dateModified;
 	}
 	
 	
-	
-//	@OneToMany(mappedBy="latestModifier")
-//	@NotAudited
-//	public Set<User> getUsersChanged() {
-//		return usersChanged;
-//	}
-//	public void setUsersChanged(Set<User> usersChanged) {
-//		this.usersChanged = usersChanged;
-//	}
-	
-	
-	
-	
+	/**
+	 * getter for the isEnabled field
+	 * @return isEnabled
+	 */
 	public boolean isEnabled() {
 		return isEnabled;
 	}
+	/**
+	 * setter for the isEnabled field
+	 * @param isEnabled
+	 */
 	public void setEnabled(boolean isEnabled) {
 		this.isEnabled = isEnabled;
 	}
 	
 	
+	/**
+	 * getter for the roles field.
+	 * mapped ManyToMany to the <i>roles</i> table.
+	 * @return roles
+	 */
 	@ManyToMany
 	@JoinTable( 
 		name = "users_roles", 
@@ -352,6 +434,10 @@ public class User {
 	public Collection<Role> getRoles() {
 		return roles;
 	}
+	/**
+	 * setter for the roles field
+	 * @param roles
+	 */
 	public void setRoles(Collection<Role> roles) {
 		this.roles = roles;
 	}
@@ -360,10 +446,19 @@ public class User {
 	
 	
 	
+	/**
+	 * no arg constructor
+	 */
 	public User(){
 		
 	}
 	
+	/**
+	 * Parameterized constructor
+	 * @param firstName
+	 * @param lastName
+	 * @param password
+	 */
 	public User(String firstName, String lastName, String password) {
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -376,19 +471,24 @@ public class User {
 	
 	
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", firstName=" + firstName + ", lastName="
 				+ lastName + ", email=" + email + ", phone=" + phone + ", password=" + password + ", matchingPassword="
-				+ matchingPassword + ", BirthDate=" + BirthDate + ", isAdmin=" + isAdmin + ", dateCreated="
+				+ matchingPassword + ", isAdmin=" + isAdmin + ", dateCreated="
 				+ dateCreated + ", isEnabled=" + isEnabled + ", latestModifier=" + latestModifier + ", dateModified="
 				+ dateModified + ", roles=" + roles + "]";
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((BirthDate == null) ? 0 : BirthDate.hashCode());
 		result = prime * result + ((dateCreated == null) ? 0 : dateCreated.hashCode());
 		result = prime * result + ((dateModified == null) ? 0 : dateModified.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
@@ -404,6 +504,9 @@ public class User {
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -413,11 +516,6 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (BirthDate == null) {
-			if (other.BirthDate != null)
-				return false;
-		} else if (!BirthDate.equals(other.BirthDate))
-			return false;
 		if (dateCreated == null) {
 			if (other.dateCreated != null)
 				return false;

@@ -1,4 +1,4 @@
-package com.interfac.usermanager.util;
+package com.interfac.usermanager.user.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

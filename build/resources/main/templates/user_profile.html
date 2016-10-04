@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+<link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}" href="../css/style.css">
+
+</style>
+</head>
+<body>
+	
+	<nav>
+		<div class="nav_box"><a href="welcome" th:href="@{/}">Home</a></div>
+		<div id="active" class="nav_box"><a sec:authorize="#authentication.authenticated" href="/home"
+						th:href="@{/home}">Profile</a></div>
+		<div class="nav_box"><a href="users" th:href="@{users}">All Users</a></div>	
+		<div class="nav_box"><a href="/registration"
+						th:href="@{/registration}">Register a user</a></div>
+						
+		<div class="nav_box" style="float:right"><a sec:authorize="#authentication.authenticated" href="/logout"
+						th:href="@{/logout}">Logout</a></div>					
+	</nav>
+	
+	
+	<div><p>Profile of user: <span th:text="${user.getUserName()}">username</span></p></div>
+	<br>
+
+	<table>
+		<tr>
+			<td>ID:</td>
+			<td th:text="${user.getUserId()}"></td>
+		</tr>
+		<tr>
+			<td>First Name:</td>
+			<td th:text="${user.getFirstName()}"></td>
+		</tr>
+		<tr>
+			<td>Last Name:</td>
+			<td th:text="${user.getLastName()}"></td>
+		</tr>
+		<tr>
+			<td>Email Address:</td>
+			<td th:text="${user.getEmail()}"></td>
+		</tr>
+		<tr>
+			<td>Birth date:</td>
+			<td th:text="${user.getBirthDate()}"></td>
+		</tr>
+		<tr>
+			<td>Created on:</td>
+			<td th:text="${user.getDateCreated()}"></td>
+		</tr>
+		<tr>
+			<td>Last modified on:</td>
+			<td th:text="${user.getDateModified()}"></td>
+		</tr>
+		<tr>
+			<td>Last modified by:</td>
+			<td th:text="${user.getLatestModifier()}"></td>
+		</tr>
+		<tr>
+			<td>Roles:</td>
+			<td sec:authentication="principal.authorities"></td>
+		</tr>
+			
+	</table>
+	<br><br>
+	<div><a href="/users/edit/0"
+					th:href="@{/users/edit/{userId}(userId=${user.getUserId()})}">Edit</a></td></div>
+			
+	
+	<br>
+	
+</body>
+</html>

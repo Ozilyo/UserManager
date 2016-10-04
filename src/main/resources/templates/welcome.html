@@ -5,7 +5,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
 	<meta charset="ISO-8859-1"/>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
 	<title>Welcome</title>
 	<style type="text/css">
 
@@ -18,27 +18,31 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 		<div id="active" class="nav_box"><a href="welcome" th:href="@{/}">Home</a></div>
 		<div class="nav_box"><a sec:authorize="#authentication.authenticated" href="/home"
 						th:href="@{/home}">Profile</a></div>
-		<div class="nav_box"><a href="users" th:href="@{users}">All Users</a></div>	
-		<div class="nav_box"><a href="/registration"
+		<div class="nav_box" sec:authorize="hasRole('ROLE_ADMIN')"><a href="users" th:href="@{users}">All Users</a></div>	
+		<div class="nav_box" sec:authorize="hasRole('ROLE_ADMIN')"><a href="/registration"
 						th:href="@{/registration}">Register a user</a></div>
 						
 		<div class="nav_box" style="float:right"><a sec:authorize="#authentication.authenticated" href="/logout"
 						th:href="@{/logout}">Logout</a></div>					
 	</nav>
 	
-	<h1>Welcome to 'UserManager'</h1>
 	
-	<div th:with="welcomeMessage=${welcomeMessage}">
-		<h3 align="center" th:text="${welcomeMessage}">Welcome</h3>
+	<div style="margin: auto">
+	
+		<h2 align="center">Interface co. ltd.</h2>
+		<h1 align="center">Welcome to 'UserManager'</h1>
+		
+		<div th:with="welcomeMessage=${welcomeMessage}">
+			<h3 align="center" th:text="${welcomeMessage}">Welcome</h3>
+		</div>
+		
+		<div>logged in user: <span sec:authentication="name"></span></div>
+		Roles: <span sec:authentication="principal.authorities"></span>
+		
+		<div><a sec:authorize="#authentication.authenticated" href="/logout"
+						th:href="@{/logout}">Logout</a></div>
+		
 	</div>
-	
-	<div>logged in user: <span sec:authentication="name"></span></div>
-	Roles: <span sec:authentication="principal.authorities"></span>
-	
-	<div><a sec:authorize="#authentication.authenticated" href="/logout"
-					th:href="@{/logout}">Logout</a></div>
-	
-	<div sec:authorize="hasRole('ROLE_ADMIN')"><a href="users" th:href="@{users}">Manage users</a></div>
 	
 </body>
 </html>
