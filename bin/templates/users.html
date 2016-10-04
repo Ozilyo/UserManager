@@ -4,34 +4,42 @@
 <head>
 <meta charset="ISO-8859-1" />
 <title>all users</title>
+<link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}" href="../css/style.css">
+
+<!-- <style type="text/css"> -->
+<!-- </style> -->
 </head>
 <body>
 
+	<nav>
+		<div class="nav_box"><a href="welcome" th:href="@{/}">Home</a></div>
+		<div class="nav_box"><a sec:authorize="#authentication.authenticated" href="/home"
+					th:href="@{/home}">Profile</a></div>
+		<div class="nav_box" id="active"><a href="users" th:href="@{users}">All Users</a></div>	
+		<div class="nav_box"><a href="/registration"
+						th:href="@{/registration}">Register a user</a></div>
+						
+		<div class="nav_box" style="float:right"><a sec:authorize="#authentication.authenticated" href="/logout"
+						th:href="@{/logout}">Logout</a></div>					
+	</nav>
+	
 	</br>
 	<div class="box">
 		<div se class="container-1">
 			<span class="icon"><i class="fa fa-search"></i></span>
 		</div>
 	</div>
-	<div class="search">
-		<form action="#" th:action="@{/users/search}">
-			<input type="search" id="search" placeholder="Search..."
-				th:name="username" />
-			<button type="submit" th:text="Search">Search</button>
-		</form>
-	</div>
+<!-- 	<div class="search"> -->
+<!-- 		<form action="#" th:action="@{/users/search}"> -->
+<!-- 			<input type="search" id="search" placeholder="Search..." -->
+<!-- 				th:name="username" /> -->
+<!-- 			<button type="submit" th:text="Search">Search</button> -->
+<!-- 		</form> -->
+<!-- 	</div> -->
 	<br>
-	
-	<div ><a href="/registration"
-					th:href="@{/registration}">Register a user</a></div>
-	<div><a sec:authorize="#authentication.authenticated" href="/logout"
-					th:href="@{/logout}">Logout</a></div>	
-	<div><a sec:authorize="#authentication.authenticated" href="/home"
-					th:href="@{/home}">My Profile</a></div>					
+	<br><br>
 
-	<br>
-
-	<table>
+	<table class="tg">
 		<thead>
 			<tr>
 				<th>ID</th>

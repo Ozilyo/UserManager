@@ -19,7 +19,7 @@ import com.interfac.usermanager.util.UsernameExistsException;
 
 
 @Service
-public class UserServiceImp {
+public class UserServiceImp implements UserService {
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -30,6 +30,10 @@ public class UserServiceImp {
 	
 
 	
+	/* (non-Javadoc)
+	 * @see com.interfac.usermanager.user.services.UserService#registerUser(com.interfac.usermanager.user.model.User)
+	 */
+	@Override
 	public void registerUser(User user) throws UsernameExistsException{
 		Role adminRole = roleRepository.findByName("ROLE_ADMIN");
 		Role userRole = roleRepository.findByName("ROLE_USER");
@@ -38,35 +42,55 @@ public class UserServiceImp {
 			throw new UsernameExistsException("A user already exists with that username: " + user.getUserName());
 		}
 		
-		if (user.getIsAdmin()) {
-			System.err.println(user.getIsAdmin());
+		if (user.isAdmin()) {
+			System.err.println(user.isAdmin());
 			user.setRoles(Arrays.asList(adminRole));
 		} else {
-			System.err.println(user.getIsAdmin());
+			System.err.println(user.isAdmin());
 			user.setRoles(Arrays.asList(userRole));
 		}
 		
 		userRepository.save(user);
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.interfac.usermanager.user.services.UserService#deleteUser(long)
+	 */
+	@Override
 	public void deleteUser(long userId){
 		userRepository.delete(userId);
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.interfac.usermanager.user.services.UserService#listUsers()
+	 */
+	@Override
 	public List<User> listUsers(){
 		return userRepository.findAll();
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.interfac.usermanager.user.services.UserService#getUserById(long)
+	 */
+	@Override
 	public User getUserById(long userId) {
 		return userRepository.findOne(userId);
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.interfac.usermanager.user.services.UserService#getUserByUserName(java.lang.String)
+	 */
+	@Override
 	public User getUserByUserName(String username) {
 		return userRepository.findByUserName(username);
 	}
 	
 	
 	
+	/* (non-Javadoc)
+	 * @see com.interfac.usermanager.user.services.UserService#retrieveAudits(java.lang.Long)
+	 */
+	@Override
 	public void retrieveAudits(Long userId) {
 		
 		
@@ -82,6 +106,10 @@ public class UserServiceImp {
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see com.interfac.usermanager.user.services.UserService#userNameExists(java.lang.String)
+	 */
+	@Override
 	public boolean userNameExists(String username){
 		List<User> users = userRepository.findUserByUserName(username);
 		User user = null;
@@ -97,6 +125,10 @@ public class UserServiceImp {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.interfac.usermanager.user.services.UserService#editUser(com.interfac.usermanager.user.model.User)
+	 */
+	@Override
 	public void editUser(User user) {
 		Role adminRole = roleRepository.findByName("ROLE_ADMIN");
 		Role userRole = roleRepository.findByName("ROLE_USER");

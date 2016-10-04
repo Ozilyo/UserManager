@@ -18,20 +18,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.interfac.usermanager.user.model.User;
-import com.interfac.usermanager.user.services.UserServiceImp;
+import com.interfac.usermanager.user.services.UserService;
 import com.interfac.usermanager.util.UsernameExistsException;
 
 @Controller
 
 public class UserController {
 	@Autowired
-	private UserServiceImp userService; // change type to userService interface
+	private UserService userService; // change type to userService interface
 	
 	@RequestMapping(value = "", method=RequestMethod.GET)
 	public String welcome(Model model){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	      String name = auth.getName(); //get logged in username
-		model.addAttribute("welcomeMessage", "You are logged in as '" + name + "' ");
+	      
+		model.addAttribute("welcomeMessage", "You are logged in as '" + name + "' "
+				+ auth.getAuthorities() + auth.getDetails() + "\n" + auth.getPrincipal());
 		return "welcome";
 	}
 	
@@ -58,23 +60,6 @@ public class UserController {
 	public String login(@PathVariable Long userId, Model model){
 		model.addAttribute("user", userService.getUserById(userId));
 		return "home";
-	}
-	
-	
-	//for testing only! REMOVE LATER!!
-	@RequestMapping(value="/test")
-	public String test(Model model){
-		User ali = userService.getUserById(25);
-		ali.setIsAdmin(true);
-		ali.setEmail("XXXXXXXXX");
-		ali.setPhone("0123456789");
-		ali.setUserName("XXXXXXXX");
-		ali.setPassword("XXXXXX");
-		
-//		userService.registerUser(ali);
-		model.addAttribute("user", new User());
-		model.addAttribute("usersList", userService.listUsers());
-		return "users";
 	}
 	
 	

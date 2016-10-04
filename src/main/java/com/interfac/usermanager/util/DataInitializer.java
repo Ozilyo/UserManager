@@ -18,7 +18,7 @@ import com.interfac.usermanager.user.model.User;
 import com.interfac.usermanager.user.repositories.PrivilegeRepository;
 import com.interfac.usermanager.user.repositories.RoleRepository;
 import com.interfac.usermanager.user.repositories.UserRepository;
-import com.interfac.usermanager.user.services.UserServiceImp;
+import com.interfac.usermanager.user.services.UserService;
 
 @Component
 public class DataInitializer implements ApplicationListener<ContextRefreshedEvent> {
@@ -35,7 +35,7 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    UserServiceImp userService;
+    UserService userService;
     @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {

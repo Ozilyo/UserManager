@@ -3,15 +3,26 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+
+<link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}" href="../css/style.css">
+
+</style>
 </head>
 <body>
+	
 	<nav>
-		<div><a href="users" th:href="@{/}">Home</a></div>
-		<div><a href="users" th:href="@{users}">All Users</a></div>
-		<div><a href="/users/edit/0"
-					th:href="@{/users/edit/{userId}(userId=${user.getUserId()})}">Edit</a></td></div>
-		<div><a th:href="@{/logout}">Logout</a></div>
+		<div class="nav_box"><a href="welcome" th:href="@{/}">Home</a></div>
+		<div id="active" class="nav_box"><a sec:authorize="#authentication.authenticated" href="/home"
+						th:href="@{/home}">Profile</a></div>
+		<div class="nav_box"><a href="users" th:href="@{users}">All Users</a></div>	
+		<div class="nav_box"><a href="/registration"
+						th:href="@{/registration}">Register a user</a></div>
+						
+		<div class="nav_box" style="float:right"><a sec:authorize="#authentication.authenticated" href="/logout"
+						th:href="@{/logout}">Logout</a></div>					
 	</nav>
+	
+	
 	<div><p>Profile of user: <span th:text="${user.getUserName()}">username</span></p></div>
 	<br>
 
@@ -54,8 +65,8 @@
 		</tr>
 			
 	</table>
-	
-	<div><a href="/users/edit/1"
+	<br><br>
+	<div><a href="/users/edit/0"
 					th:href="@{/users/edit/{userId}(userId=${user.getUserId()})}">Edit</a></td></div>
 			
 	

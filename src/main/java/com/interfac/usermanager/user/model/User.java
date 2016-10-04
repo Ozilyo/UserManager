@@ -286,6 +286,14 @@ public class User {
 	}
 	
 	
+
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+	
 	
 	@Column(name="date_created")
 	public Date getDateCreated() {

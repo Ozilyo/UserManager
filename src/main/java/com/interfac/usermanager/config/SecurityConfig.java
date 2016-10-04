@@ -24,8 +24,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.dataSource(dataSource).usersByUsernameQuery("select username, password, true "
 						+ "from user where username=?")
 //				.withUser("root").password("root").roles("ADMIN");
-				.authoritiesByUsernameQuery("select user.username, role.name from role, user "
-						+ "inner join users_roles on users_roles.role_id "
+				.authoritiesByUsernameQuery("select user.username, role.name from user, role "
+						+ "join users_roles on (users_roles.role_id = role.id) "
 						+ "where user.username=? and users_roles.user_id=user.userid");
 				
 	}
@@ -54,41 +54,3 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 }
 
-
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.CommandLineRunner;
-//import org.springframework.boot.SpringApplication;
-//import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-//import org.springframework.context.annotation.ComponentScan;
-//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-//import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-//import org.springframework.security.core.authority.AuthorityUtils;
-//import org.springframework.security.core.context.SecurityContextHolder;
-
-//@EnableAutoConfiguration
-//@ComponentScan
-//@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
-//public class SampleSecureApplication implements CommandLineRunner {
-//
-//	@Autowired
-//	private SampleService service;
-//
-//	@Override
-//	public void run(String... args) throws Exception {
-//		SecurityContextHolder.getContext()
-//				.setAuthentication(new UsernamePasswordAuthenticationToken("user", "N/A",
-//						AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER")));
-//		try {
-//			System.out.println(this.service.secure());
-//		}
-//		finally {
-//			SecurityContextHolder.clearContext();
-//		}
-//	}
-//
-//	public static void main(String[] args) throws Exception {
-//		SpringApplication.run(SampleSecureApplication.class, "--debug");
-//	}
-//
-//}

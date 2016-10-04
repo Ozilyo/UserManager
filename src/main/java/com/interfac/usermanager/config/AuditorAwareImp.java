@@ -22,7 +22,7 @@ public class AuditorAwareImp implements AuditorAware<String> {
 	public String getCurrentAuditor() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
-
+		
 	    if (auth == null || !auth.isAuthenticated()) {
 	        return null;
 	    }
