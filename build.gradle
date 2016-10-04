@@ -40,8 +40,3 @@ dependencies {
 task wrapper(type: Wrapper) {
 	gradleVersion = '2.14.1'
 }
-
-task copyDepJars(type: Copy){
-	from configurations.compile
-	into 'F:\\sts-workspace\\lib'
-}

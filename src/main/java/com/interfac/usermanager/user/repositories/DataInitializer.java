@@ -1,7 +1,10 @@
 package com.interfac.usermanager.user.repositories;
 
+import java.sql.Time;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -86,6 +89,7 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         user.setFirstName("root");
         user.setLastName("root");
         user.setPhone("1234567890");
+        user.setDateCreated(new Date());
         user.setPassword("root123");
         user.setMatchingPassword("root123");
         user.setEmail("test@test.com");

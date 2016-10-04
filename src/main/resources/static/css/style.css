@@ -81,8 +81,7 @@
 	
 	.error {
 			color:red;
-	}
-		
-	input.error{
-		background-color: #ffcccc;
-	}
+		}
+		input.error{
+			background-color: #ffcccc;
+		}
