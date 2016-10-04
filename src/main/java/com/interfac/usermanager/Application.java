@@ -21,25 +21,22 @@ import com.interfac.usermanager.user.model.User;
 import com.interfac.usermanager.user.repositories.UserRepository;
 
 
-//@ComponentScan
-//@EnableAutoConfiguration
-//@EnableWebMvc
+/**
+ * This class is an entry point used to bootstrap and launch a Spring application from a Java main method.
+ * 
+ * @author Ali Abdalla
+ *
+ */
 @SpringBootApplication
 @EnableJpaAuditing
 public class Application {
-	@Autowired
-	UserRepository repo;
-//	@Autowired
-//	TemplateResolver templateResolver;
 	
+	/**
+	 * The main method. the application starts here.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
-	}
-	
-	@Bean
-	public PasswordEncoder passwordEncoder(){
-		return new StandardPasswordEncoder();
-		
 	}
 	
 }

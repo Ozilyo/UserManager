@@ -1,5 +1,9 @@
 package com.interfac.usermanager.user.controllers;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +18,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.interfac.usermanager.user.model.User;
 import com.interfac.usermanager.user.services.UserService;
 import com.interfac.usermanager.user.validation.UsernameExistsException;
 
 /**
+ * 
  *  This class handles mapping the HTTP requests to the views after calling the {@link UserService} 
  * for processing the needed service.
  * 
@@ -28,14 +34,10 @@ import com.interfac.usermanager.user.validation.UsernameExistsException;
  * @see UserRepository
  * @see UserService
  */
-/**
- * @author Ali
- *
- */
 @Controller
 public class UserController {
 	/**
-	 * This instance is Autowired to the {@link UserService} interface.
+	 * This instance is Autowired to the {@link UserService} interface. handles user services.
 	 */
 	@Autowired
 	private UserService userService;
@@ -230,6 +232,18 @@ public class UserController {
 		return "user_profile";
 	}
 	
-
+	/**
+	 * handles requests to <i>"/users/search"</i> to find an employee by username.
+	 * 
+	 * @param username
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/users/search")
+	public String searchEmployees(@RequestParam("username") String username, Model model){
+		List<User> users = new ArrayList<User>(Arrays.asList(userService.getUserByUserName(username)));
+		model.addAttribute("usersList", users);
+		return "users";
+	}
 	
 }

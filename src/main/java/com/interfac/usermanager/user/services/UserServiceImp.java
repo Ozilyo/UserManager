@@ -23,6 +23,7 @@ import com.interfac.usermanager.user.validation.UsernameExistsException;
  * 
  * @author Ali
  *
+ * @see UserService
  */
 @Service
 public class UserServiceImp implements UserService {
@@ -45,6 +46,7 @@ public class UserServiceImp implements UserService {
 	/* (non-Javadoc)
 	 * @see com.interfac.usermanager.user.services.UserService#registerUser(com.interfac.usermanager.user.model.User)
 	 */
+	
 	@Override
 	public void registerUser(User user) throws UsernameExistsException{
 		
@@ -66,6 +68,8 @@ public class UserServiceImp implements UserService {
 	
 	/* (non-Javadoc)
 	 * @see com.interfac.usermanager.user.services.UserService#deleteUser(long)
+	 */
+	/*
 	 */
 	@Override
 	public void deleteUser(long userId){
