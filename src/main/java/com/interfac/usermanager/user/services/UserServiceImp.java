@@ -46,7 +46,6 @@ public class UserServiceImp implements UserService {
 	/* (non-Javadoc)
 	 * @see com.interfac.usermanager.user.services.UserService#registerUser(com.interfac.usermanager.user.model.User)
 	 */
-	
 	@Override
 	public void registerUser(User user) throws UsernameExistsException{
 		

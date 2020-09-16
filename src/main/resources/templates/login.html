@@ -4,7 +4,7 @@ xmlns:th="http://www.thymeleaf.org"
 xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Login</title>
 <style type="text/css">
 /* Bordered form */
 form {
@@ -32,46 +32,12 @@ button {
     width: 100%;
 }
 
-/* Extra style for the cancel button (red) */
-.cancelbtn {
-    width: auto;
-    padding: 10px 18px;
-    background-color: #f44336;
-}
-
-/* Center the avatar image inside this container */
-.imgcontainer {
-    text-align: center;
-    margin: 24px 0 12px 0;
-}
-
-/* Avatar image */
-img.avatar {
-    width: 40%;
-    border-radius: 50%;
-}
 
 /* Add padding to containers */
 .container {
     padding: 16px;
 }
 
-/* The "Forgot password" text */
-span.psw {
-    float: right;
-    padding-top: 16px;
-}
-
-/* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
-    span.psw {
-        display: block;
-        float: none;
-    }
-    .cancelbtn {
-        width: 100%;
-    }
-}
 
 .error {
 			color:red;
@@ -92,7 +58,7 @@ span.psw {
 			<form name='f' th:action='@{/login}' method='POST'>
 				<table>
 					<tr>
-						<td>User:</td>
+						<td>Username:</td>
 						<td><input type='text' placeholder="Enter Username" name='username' value='' /></td>
 					</tr>
 					<tr>
@@ -107,19 +73,6 @@ span.psw {
 				</table>
 			</form>
 		</div>
-<!-- 	<form action="action_page.php" th:action='@{/login}' method='POST'> -->
-<!-- 		<div class="imgcontainer"> -->
-<!-- 			<img src="../images/img_avatar2.png" th:src="@{/images/img_avatar2.png}" alt="Avatar" class="avatar"> -->
-<!-- 		</div> -->
-
-<!-- 		<div class="container"> -->
-<!-- 			<label><b>Username</b></label> <input type="text" -->
-<!-- 				placeholder="Enter Username" name="uname" required> <label><b>Password</b></label> -->
-<!-- 			<input type="password" placeholder="Enter Password" name="psw" -->
-<!-- 				required> -->
-<!-- 			<input name="submit" type="submit"  -->
-<!--  						value="Login" /> -->
-<!-- 		</div> -->
 
 	</form>
 </body>

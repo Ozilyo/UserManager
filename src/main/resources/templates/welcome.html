@@ -39,8 +39,6 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 		<div>logged in user: <span sec:authentication="name"></span></div>
 		Roles: <span sec:authentication="principal.authorities"></span>
 		
-		<div><a sec:authorize="#authentication.authenticated" href="/logout"
-						th:href="@{/logout}">Logout</a></div>
 		
 	</div>
 	

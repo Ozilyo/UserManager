@@ -30,6 +30,7 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.annotation.Version;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.interfac.usermanager.user.validation.PasswordsMatch;
@@ -80,7 +81,8 @@ public class User {
 	@NotEmpty(message="First Name field should not be empty")
     @Size(min=2, max=30, message="{firstName.size}")
 	private String firstName;
-	
+
+
 	/**
 	 * Represents the lastName property.
 	 * Is mapped to the <i>last_name</i> column in the database.
